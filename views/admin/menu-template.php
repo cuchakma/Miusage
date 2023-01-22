@@ -1,3 +1,3 @@
 <?php
-echo '<h1>Hello Man</h1>';
+echo '<div id="miusage"></div>';
 ?>

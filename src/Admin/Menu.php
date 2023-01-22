@@ -34,11 +34,18 @@ class Menu {
     }
 
     public function register_styles_scripts( $hook ) {
+        $script_deps = '';
         $this->assets_object->insert_style_deps( 'miusage.css', 'miusage-admin', [], rand(), 'toplevel_page_miusage' );
+        $this->assets_object->insert_script_deps( 'entry-point.js', 'miusage-admin', $script_deps['dependencies'], $script_deps['version'], true, 'toplevel_page_miusage' );
         $this->assets_object->register_misuage_style();
+        $this->assets_object->register_misuage_script();
 
         if ( $hook === 'toplevel_page_miusage' ) {
             $this->assets_object->enqueue_style( 'miusage-admin' );
+        }
+
+        if ( $hook === 'toplevel_page_miusage' ) {
+            $this->assets_object->enqueue_script( 'miusage-admin' );
         }
     }
 

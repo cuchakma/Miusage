@@ -44,9 +44,11 @@ final Class Miusage {
     }
 
     public static function define_constants() {
+        define( 'MIUSAGE_ROOT_PATH', __DIR__ );
         define( 'VIEWS_PATH', __DIR__ . '/views/' );
         define( 'MIUSAGE_URL', plugin_dir_url( __FILE__ ) );
-        define( 'ADMIN_ASSETS_PATH', MIUSAGE_URL . 'assets/admin/css' );
+        define( 'ADMIN_ASSETS_CSS_PATH', MIUSAGE_URL . 'assets/admin/css' );
+        define( 'ADMIN_ASSETS_JS_PATH', MIUSAGE_URL . 'assets/admin/build' );
     }
 }
 
