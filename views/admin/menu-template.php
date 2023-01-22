@@ -1,3 +1,4 @@
 <?php
-echo '<div id="miusage"></div>';
+echo '<div id="miusage-root">
+      </div>';
 ?>

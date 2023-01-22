@@ -1,29 +1,40 @@
-const defaults = require('@wordpress/scripts/config/webpack.config');
 const path = require("path");
+const defaultConfig = require("@wordpress/scripts/config/webpack.config");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 
-const plugins = defaults.plugins.filter(
-  (plugin) =>
-      plugin.constructor.name != "MiniCssExtractPlugin" &&
-      plugin.constructor.name != "CleanWebpackPlugin"
+const isProduction = process.env.NODE_ENV === "production";
+
+const plugins = defaultConfig.plugins.filter(
+    (plugin) =>
+        plugin.constructor.name != "MiniCssExtractPlugin" &&
+        plugin.constructor.name != "CleanWebpackPlugin"
 );
 
-module.exports = {
-  ...defaults,
-  entry:{
-    "entry-point": path.resolve(__dirname, 'assets/admin/scripts/index.js')
-  },
-  output:{
-    ...defaults.output,
-    filename:"[name].js",
-    path:path.resolve(__dirname, 'assets/admin/build')
-  },
-  plugins: [
-    new MiniCSSExtractPlugin({
-        filename: ({ chunk }) => {
-            return `css/${chunk.name}.css`;
-        },
-    }),
-    ...plugins,
-  ]
+const config = {
+    ...defaultConfig,
+    entry: {
+        'miusage-entry': path.resolve(__dirname, 'assets/admin/react/index.js'),
+    },
+    module: {
+        ...defaultConfig.module,
+        rules: [
+            ...defaultConfig.module.rules,
+        ],
+    },
+    output: {
+        ...defaultConfig.output,
+        filename: "[name].js",
+        path: path.resolve( __dirname, "build" ),
+    },
+    plugins: [
+        new MiniCSSExtractPlugin({
+            filename: ({ chunk }) => {
+                return `css/${chunk.name}.css`;
+            },
+        }),
+        ...plugins,
+    ],
 };
+
+module.exports = config;
